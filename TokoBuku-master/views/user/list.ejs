@@ -1,0 +1,59 @@
+<%- include ../layout/header.ejs %>
+<% if (messages.error) { %>
+<p style="color:red;">
+    <%- messages.error %>
+</p>
+<% } %>
+<% if (messages.succes) { %>
+<p style="color:green;">
+    <%- messages.success %>
+</p>
+<% } %>
+
+<div class="container">
+    <div class="row mt-3">
+        <div class="col-12">
+            <h1>
+                <%= title %>
+                <hr class="featurette-divider">
+            </h1>
+            <table class="table table-hover">
+                <tr style="text-align:center;">
+                    <th>Judul</th>
+                    <th>Stok</th>
+                    <th>Penerbit</th>
+                    <th>Tahun</th>
+                    <th>Action</th>
+                </tr>
+                <% if(data) { %>
+                <% data.forEach(function(user){ %>
+                <tr style="text-align:center;margin-bottom: 5px;">
+                    <td>
+                        <%= user.judul %>
+                    </td>
+                    <td>
+                        <%= user.stok %>
+                    </td>
+                    <td>
+                        <%= user.penerbit %>
+                    </td>
+                    <td>
+                        <%= user.tahun %>
+                    </td>
+                    <td>
+                        <div>
+                            <form action="/users/delete/<%= user._id %>" method="post">
+                                <a style="font-size:2vh;" class="btn btn-primary" href="/users/edit/<%= user._id %>">Edit</a> &nbsp;
+                                <input class="btn btn-primary" type="submit" name="delete" value="Delete" onClick="_method">
+                                <input type="hidden" name="_method" value="DELETE">
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                <% }) %>
+                <% } %>
+            </table>
+        </div>
+    </div>
+</div>
+<%- include ../layout/footer.ejs %>
